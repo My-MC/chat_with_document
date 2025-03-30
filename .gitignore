@@ -1,0 +1,9 @@
+# venv
+.venv
+
+# Cache
+.ruff_cache
+
+# Referring Documents
+docs/*
+!docs/.gitkeep
