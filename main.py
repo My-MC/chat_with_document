@@ -11,10 +11,10 @@ from transformers import AutoTokenizer
 from vllm import LLM, SamplingParams
 
 DOCUMENT_DIR = "./docs"
-PROMPT = "茨城県水戸市にある偕楽園で、梅を見ながら二匹のヒバリが出会う物語を作成してください。"
+PROMPT = "茨城県水戸市にある偕楽園で、梅を見ながら二匹のヒバリが出会う物語を作成してください。"  # noqa: E501
 
 
-def fetch_document(dir: Path):
+def fetch_document(dir: Path) -> list[Document]:
     documents = []
 
     for child in (path for path in dir.iterdir() if path.name != ".gitkeep"):
@@ -28,7 +28,7 @@ def fetch_document(dir: Path):
     return documents
 
 
-# 文書のチャンキング（512トークン単位）
+# 文書のチャンキング(512トークン単位)
 text_splitter = MarkdownTextSplitter(chunk_size=512, chunk_overlap=50)
 documents = text_splitter.split_documents(fetch_document(Path(DOCUMENT_DIR)))
 
@@ -56,7 +56,7 @@ collection.add(
 )
 
 
-def retrieve_documents(query: str, k: int = 5):
+def retrieve_documents(query: str, k: int = 5) -> str:
     # クエリのベクトル化
     query_embedding = model.encode([query])
 
